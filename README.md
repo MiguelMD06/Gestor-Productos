@@ -1,6 +1,6 @@
 # GestorProductos
 
-Aplicación Android para gestionar el catálogo de productos de las tiendas deportivas **XFit** y **SportHouse**.
+Aplicación Android para gestionar el catálogo de productos de las tiendas deportivas **XFit** y **SportHouse** en las que laboro, esta aplicación resuelve una situación específica en mi jornada laboral, donde frecuentemente tengo que buscar en un chat todos los precios de los productos.
 
 ---
 
