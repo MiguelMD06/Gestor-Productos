@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="fondo">#F5F7FA</color>
+    <color name="primario">#1B3A5C</color>
+    <color name="acento">#F4801A</color>
+    <color name="superficie">#FFFFFF</color>
+    <color name="texto_principal">#1A1A2E</color>
+    <color name="precio">#4CAF82</color>
+    <color name="borde">#E0E4EB</color>
+    <color name="badge_xfit_texto">#C45E00</color>
+    <color name="badge_xfit_fondo">#FFF0E0</color>
+    <color name="badge_sport_texto">#0F6E56</color>
+    <color name="badge_sport_fondo">#E1F5EE</color>
+</resources>

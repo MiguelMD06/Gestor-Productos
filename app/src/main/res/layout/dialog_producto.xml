@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tv_dialog_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primario"
+        android:padding="16dp"
+        android:text="Agregar producto"
+        android:textColor="@color/superficie"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:id="@+id/ll_selector_imagen"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_selector_imagen">
+
+            <ImageView
+                android:id="@+id/iv_preview_imagen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_icono_imagen"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_image_placeholder"
+                android:alpha="0.5"/>
+
+            <TextView
+                android:id="@+id/tv_hint_imagen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Toca para seleccionar imagen"
+                android:textSize="12sp"
+                android:textColor="@color/borde"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del producto"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/primario"/>
+
+        <EditText
+            android:id="@+id/et_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_input"
+            android:hint="Ej: Tenis Running Pro X"
+            android:inputType="textCapSentences"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="#AAAAAA"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/primario"/>
+
+        <EditText
+            android:id="@+id/et_precio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_input"
+            android:hint="Ej: 289900"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="#AAAAAA"/>
+
+    </LinearLayout>
+
+</LinearLayout>
