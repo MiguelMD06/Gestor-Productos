@@ -12,8 +12,6 @@ import com.example.gestorproductos.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private XFit xFitFragment;
-    private SportHouse sportHouseFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,22 +20,18 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        xFitFragment = new XFit();
-        sportHouseFragment = new SportHouse();
-
-        // Cargamos XFit por defecto
         if (savedInstanceState == null) {
-            cargarFragment(xFitFragment);
+            cargarFragment(FragmentsManager.newInstance(1));
             binding.bottomNavigation.setSelectedItemId(R.id.nav_xfit);
         }
 
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_xfit) {
-                cargarFragment(xFitFragment);
+                cargarFragment(FragmentsManager.newInstance(1));
                 return true;
             } else if (id == R.id.nav_sporthouse) {
-                cargarFragment(sportHouseFragment);
+                cargarFragment(FragmentsManager.newInstance(2));
                 return true;
             }
             return false;

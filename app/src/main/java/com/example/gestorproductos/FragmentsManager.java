@@ -1,7 +1,6 @@
 package com.example.gestorproductos;
 
 import android.app.AlertDialog;
-import android.os.Binder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
 import com.example.gestorproductos.databinding.FragmentSportHouseBinding;
@@ -20,7 +20,7 @@ import com.example.gestorproductos.databinding.FragmentXFitBinding;
 
 import java.util.ArrayList;
 
-public class XFit extends Fragment {
+public class FragmentsManager extends Fragment {
 
     private ViewBinding binding;
     private ProductAdapter adapter;
@@ -30,14 +30,13 @@ public class XFit extends Fragment {
     private int tienda_id;
     private static final String ARG_TIENDA_ID = "tienda_id";
 
-    public static XFit newInstance(int tiendaId) {
-        XFit fragment = new XFit();
+    public static FragmentsManager newInstance(int tiendaId) {
+        FragmentsManager fragment = new FragmentsManager();
         Bundle args = new Bundle();
         args.putInt(ARG_TIENDA_ID, tiendaId);
         fragment.setArguments(args);
         return fragment;
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,19 +61,19 @@ public class XFit extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        if (tienda_id == 1){
-            binding = FragmentXFitBinding.inflate(inflater,container,false);
+        if (tienda_id == 1) {
+            binding = FragmentXFitBinding.inflate(inflater, container, false);
             return ((FragmentXFitBinding) binding).getRoot();
-        }else if(tienda_id == 2){
-            binding = FragmentSportHouseBinding.inflate(inflater,container,false);
+        } else {
+            binding = FragmentSportHouseBinding.inflate(inflater, container, false);
             return ((FragmentSportHouseBinding) binding).getRoot();
         }
-        return null;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         dbHelper = new DatabaseHelper(requireContext());
         productDialog = new ProductDialog(requireContext(), dbHelper, this::cargarProductos);
 
@@ -91,13 +90,23 @@ public class XFit extends Fragment {
             }
         });
 
-        if (binding instanceof FragmentXFitBinding xFit) {
-            xFit.rvProductos.setAdapter(adapter);
+        RecyclerView rvProductos;
+        View fabAgregar;
 
-            xFit.fabAgregar.setOnClickListener(v ->
-                    productDialog.mostrarDialogAgregar(tienda_id,
-                            () -> seleccionarImagen.launch("image/*")));
+        if (binding instanceof FragmentXFitBinding) {
+            rvProductos = ((FragmentXFitBinding) binding).rvProductos;
+            fabAgregar = ((FragmentXFitBinding) binding).fabAgregar;
+        } else {
+            rvProductos = ((FragmentSportHouseBinding) binding).rvProductos;
+            fabAgregar = ((FragmentSportHouseBinding) binding).fabAgregar;
         }
+
+        rvProductos.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvProductos.setAdapter(adapter);
+        fabAgregar.setOnClickListener(v ->
+                productDialog.mostrarDialogAgregar(tienda_id,
+                        () -> seleccionarImagen.launch("image/*")));
+
         cargarProductos();
     }
 
@@ -122,5 +131,4 @@ public class XFit extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
