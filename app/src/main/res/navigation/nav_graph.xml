@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/xFit"
-        android:name="com.example.gestorproductos.XFit"
+        android:name="com.example.gestorproductos.FragmentsManager"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_x_fit" />
     <fragment
