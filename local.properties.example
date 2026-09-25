@@ -1,0 +1,13 @@
+## Local configuration file template for Android Studio / Gradle
+## Rename or copy this file to 'local.properties' and adjust the path to your local Android SDK location.
+
+# Windows standard SDK path example:
+# sdk.dir=C\:\\Users\\<TuUsuario>\\AppData\\Local\\Android\\Sdk
+
+# macOS standard SDK path example:
+# sdk.dir=/Users/<TuUsuario>/Library/Android/sdk
+
+# Linux standard SDK path example:
+# sdk.dir=/home/<TuUsuario>/Android/Sdk
+
+sdk.dir=PATH_TO_YOUR_ANDROID_SDK
