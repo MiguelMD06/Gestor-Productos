@@ -1,20 +1,21 @@
 <div align="center">
 
-# ⚡ X-Fit & SportHouse — E-commerce & Catálogo Deportivo
+# 🏷️ X-Fit & SportHouse — Retail POS & Mobile Price Checker
 
-**Solución móvil offline-first de alto rendimiento para la administración, visualización y control de inventario de tiendas deportivas.**  
-*Desarrollado como proyecto de ingeniería de software con aplicación e impacto directo en entornos reales de retail deportivo.*
+**Herramienta móvil nativa offline-first para la verificación ágil de precios, consulta de referencias y control de inventario de prendas deportivas en punto de venta (tienda física).**
+
+*Diseñada para suprimir la lentitud operativa en mostrador, empoderando al asesor comercial para brindar atención al cliente inmediata sin depender de terminales fijas ni conexión a internet.*
 
 ---
 
 [![Android](https://img.shields.io/badge/Android-SDK%2024%20--%2036-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/)
-[![Java](https://img.shields.io/badge/Java-11-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
-[![SQLite](https://img.shields.io/badge/SQLite-Local%20DB-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![Java](https://img.shields.io/badge/Java-11%20LTS-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
+[![SQLite](https://img.shields.io/badge/SQLite-100%25%20Offline%20DB-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 [![Material Design](https://img.shields.io/badge/Material%20Design-3-757575?style=for-the-badge&logo=materialdesign&logoColor=white)](https://m3.material.io/)
 [![Glide](https://img.shields.io/badge/Glide-4.16.0-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://github.com/bumptech/glide)
-[![Gradle](https://img.shields.io/badge/Gradle-9.3-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org/)
+[![Gradle](https://img.shields.io/badge/Gradle-9.3.1-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org/)
+[![Architecture](https://img.shields.io/badge/Architecture-DRY%20%7C%20Single--Activity-blueviolet?style=for-the-badge)](https://developer.android.com/topic/architecture)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/MiguelMD06/Gestor-Productos/pulls)
 
 </div>
 
@@ -22,184 +23,198 @@
 
 ## 📌 Tabla de Contenidos
 
-- [Descripción General](#-descripción-general)
-- [Problema de Negocio y Solución](#-problema-de-negocio-y-solución)
-- [Características Principales](#-características-principales)
-- [Arquitectura de Software](#-arquitectura-de-software)
-- [Stack Tecnológico](#-stack-tecnológico)
-- [Modelo de Datos](#-modelo-de-datos)
-- [Diseño y Sistema Visual](#-diseño-y-sistema-visual)
-- [Demostración Visual](#-demostración-visual)
+- [Contexto Operativo: El Problema en Tienda](#-contexto-operativo-el-problema-en-tienda)
+- [La Solución: Asistente Móvil en Punto de Venta](#-la-solución-asistente-móvil-en-punto-de-venta)
+- [Capacidades Clave del Sistema](#-capacidades-clave-del-sistema)
+- [Arquitectura de Software y Capas](#-arquitectura-de-software-y-capas)
+- [Stack Tecnológico y Dependencias](#-stack-tecnológico-y-dependencias)
+- [Esquema de Base de Datos (SQLite)](#-esquema-de-base-de-datos-sqlite)
+- [Identidad Visual y Diseño Ergonómico](#-identidad-visual-y-diseño-ergonómico)
+- [Demostración Visual / Capturas](#-demostración-visual--capturas)
 - [Requisitos Previos](#-requisitos-previos)
 - [Instalación y Ejecución Local](#-instalación-y-ejecución-local)
-- [Configuración de Entorno](#-configuración-de-entorno)
-- [Contexto del Proyecto y Autoría](#-contexto-del-proyecto-y-autoría)
-- [Hoja de Ruta (Roadmap)](#-hoja-de-ruta-roadmap)
-- [Licencia](#-licencia)
+- [Generación y Distribución del APK](#-generación-y-distribución-del-apk)
+- [Hoja de Ruta (Roadmap Comercial)](#-hoja-de-ruta-roadmap-comercial)
+- [Autor y Licencia](#-autor-y-licencia)
 
 ---
 
-## 📖 Descripción General
+## 🏪 Contexto Operativo: El Problema en Tienda
 
-**X-Fit & SportHouse - Gestor de Productos** es una aplicación móvil nativa para Android diseñada para optimizar y agilizar la consulta, registro y actualización de precios e inventario en tiendas deportivas multimarca.
+En el sector de retail de prendas y calzado deportivo en tiendas físicas (*XFit* y *SportHouse*), la atención ágil en el piso de venta es crítica para cerrar conversiones y evitar que el cliente abandone el local por demoras en la atención:
 
-El proyecto implementa una arquitectura desacoplada y modular bajo el principio **DRY (Don't Repeat Yourself)**, persistencia relacional local con **SQLite**, manipulación reactiva de vistas con **View Binding**, y manejo de imágenes optimizado con **Glide** y persistencia de permisos URI mediante el **Storage Access Framework**.
+```
+[Cliente solicita precio] ➔ [Asesor busca en chats / camina a la PC] ➔ [Demora de 1 a 3 min] ➔ [Fricción en la venta]
+```
 
----
-
-## 💡 Problema de Negocio y Solución
-
-| Desafío Operativo Previo | Solución Implementada con X-Fit |
-| :--- | :--- |
-| **Búsqueda lenta en mensajería:** En los puntos de venta de *XFit* y *SportHouse*, los vendedores debían rastrear listas de precios dispersas en chats de mensajería instantánea frente al cliente. | **Catálogo local centralizado:** Acceso instantáneo en menos de 1 segundo a listas de productos indexadas por tienda, con búsqueda visual por imagen y precio formateado. |
-| **Pérdida de conectividad:** Las fluctuaciones de señal en los locales comerciales impedían consultar hojas de cálculo o catálogos en la nube. | **Offline-First:** Persistencia 100% nativa con SQLite embebido; la app opera sin interrupciones y con cero consumo de datos móviles. |
-| **Duplicidad de mantenimiento:** Administrar dos tiendas con catálogos e identidades visuales distintas pero con la misma estructura funcional. | **Arquitectura Unificada (DRY):** Un único `FragmentsManager` paramétrico que segrega el catálogo por `tienda_id` compartiendo componentes de interfaz y lógica de negocio. |
+### Principales Fricciones Operativas Identificadas:
+1. **Pérdida de Tiempo en Consulta de Precios:** Los asesores comerciales dependían de chats de mensajería (WhatsApp/Telegram) donde las listas de precios estaban dispersas, desactualizadas o enterradas entre cientos de mensajes.
+2. **Dependencia de Terminales Fijas (Cuellos de Botella):** Para verificar el precio de una prenda, el asesor debía abandonar al cliente en el pasillo y caminar hacia el mostrador principal para consultar el computador de caja, provocando filas y tiempos muertos.
+3. **Zonas Ciegas de Conectividad:** La infraestructura física de los locales comerciales suele presentar mala cobertura celular o caídas esporádicas de Wi-Fi, imposibilitando el uso fluido de hojas de cálculo compartidas o herramientas SaaS en la nube.
+4. **Múltiples Marcas/Tiendas:** Dificultad para conmutar rápidamente entre los inventarios independientes de **XFit** y **SportHouse** desde una misma herramienta.
 
 ---
 
-## ✨ Características Principales
+## 💡 La Solución: Asistente Móvil en Punto de Venta
 
-### 🏪 Gestión Multi-Tienda Independiente
-- Segmentación por pestañas (*BottomNavigationView*) entre **XFit** (Tienda 1) y **SportHouse** (Tienda 2).
-- Filtrado automático de inventario en base de datos según el contexto de la tienda seleccionada.
-- Badges visuales identificativos con colores de marca diferenciados para cada producto.
+**X-Fit & SportHouse - Price Checker & Retail Catalog** transforma el teléfono inteligente del vendedor en una terminal de verificación portátil, permitiendo:
 
-### ⚡ CRUD Reactivo de Productos
-- **Creación:** Formulario modal en `ProductDialog` con validaciones de campos (nombre no vacío, precio numérico válido y selección opcional de fotografía).
-- **Lectura:** Visualización en `RecyclerView` con `LinearLayoutManager` optimizado para scroll fluido.
-- **Actualización:** Edición en caliente de precios, nombres e imágenes con recarga atómica del adaptador.
-- **Eliminación:** Diálogos de confirmación nativos (`AlertDialog.Builder`) para prevenir borrados accidentales en base de datos.
+```
+[Cliente solicita precio] ➔ [Asesor abre app móvil offline] ➔ [Respuesta en < 1 segundo] ➔ [Venta fluida y asesoría profesional]
+```
 
-### 🖼️ Manejo Avanzado de Imágenes y Permisos
-- Integración con el contrato moderno `ActivityResultContracts.GetContent()` registrado de forma segura en `onCreate`.
-- Persistencia de permisos de acceso a la galería mediante `takePersistableUriPermission` con bandera `FLAG_GRANT_READ_URI_PERMISSION`, asegurando que las imágenes sigan siendo legibles tras reiniciar la aplicación o el dispositivo.
-- Renderizado de alto rendimiento, escalado proporcional (`centerCrop`) y gestión de placeholders con la librería **Glide**.
-
-### 🎨 Experiencia de Usuario Consistente (UI/UX)
-- Interfaz basada en componentes de **Google Material Design 3**.
-- Forzado de tema consistente (`AppCompatDelegate.MODE_NIGHT_NO`) para preservar el contraste y la fidelidad cromática corporativa.
-- Retroalimentación inmediata mediante mensajes `Toast` y validaciones en los inputs (`EditText.setError`).
+- **Respuesta Inmediata (<1s):** Localización visual instantánea de la prenda por fotografía, nombre y precio formateado.
+- **Funcionamiento 100% Offline:** Persistencia local embebida con SQLite. La aplicación jamás se detiene por falta de internet.
+- **Gestión Descentralizada:** El asesor puede registrar nuevas referencias, actualizar precios promocionales o depurar artículos agotados en tiempo real desde el mismo pasillo de exhibición.
+- **Arquitectura DRY Multi-Tienda:** Gestión separada pero centralizada para XFit y SportHouse con una experiencia de usuario estandarizada.
 
 ---
 
-## 🏛️ Arquitectura de Software
+## ✨ Capacidades Clave del Sistema
 
-La aplicación sigue una arquitectura modular centrada en componentes desacoplados de Android Jetpack:
+### ⚡ Verificación Ultrarrápida de Precios
+- Consulta ágil del catálogo con tipografía de alto contraste (`$ 00,000`).
+- Renderizado de tarjetas de producto enriquecidas con fotografía real del artículo para evitar confusiones de modelo o colorway.
+
+### 🏷️ Gestión Multi-Marca y Multi-Tienda
+- Navegación instantánea mediante barra inferior (*BottomNavigationView*) entre:
+  - **Tienda 1 — XFit:** Catálogo especializado de prendas fitness y cross-training.
+  - **Tienda 2 — SportHouse:** Catálogo de indumentaria deportiva casual y calzado.
+- Filtrado automático a nivel de base de datos (`tienda_id`) con etiquetas (*badges*) distintivas de color para cada establecimiento.
+
+### 📦 Operaciones CRUD en Tiempo Real
+- **Registro Rápido:** Formulario modal en `ProductDialog` con validaciones de campos obligatorios (nombre comercial y precio numérico).
+- **Actualización In Situ:** Modificación directa de precios frente a cambios de tarifas, descuentos de temporada o corrección de nombres.
+- **Eliminación Segura:** Diálogo de confirmación interactivo (`AlertDialog`) para mitigar eliminaciones por pulsaciones involuntarias.
+
+### 🖼️ Identificación Visual con Persistencia de Permisos
+- Integración con el **Storage Access Framework (SAF)** mediante `ActivityResultContracts.GetContent()`.
+- Implementación de `takePersistableUriPermission` con bandera `FLAG_GRANT_READ_URI_PERMISSION`, permitiendo que el acceso a las imágenes de la galería persista aun tras reiniciar el dispositivo móvil.
+- Pipeline de decodificación eficiente y caché con **Bumptech Glide**, previniendo problemas de *OutOfMemory (OOM)* en dispositivos de gama de entrada.
+
+### 🛡️ Diseño Ergonómico para Jornadas Comerciales
+- Construido con **Google Material Components 3**.
+- Forzado de modo claro (`AppCompatDelegate.MODE_NIGHT_NO`) para asegurar legibilidad uniforme bajo la iluminación artificial intensa de centros comerciales y locales retail.
+
+---
+
+## 🏛️ Arquitectura de Software y Capas
+
+El proyecto adopta el patrón **Single-Activity Architecture** respaldado por Android Jetpack y el principio **DRY (Don't Repeat Yourself)**:
 
 ```mermaid
-graph TD
-    User([Usuario / Vendedor]) <--> MA[MainActivity]
-    MA -->|Navegación BottomNav| FM[FragmentsManager (DRY)]
-    FM -->|Renderiza Catálogo| PA[ProductAdapter]
-    FM -->|Abre Formulario| PD[ProductDialog]
-    PD -->|Acceso a Galería| SAF[Storage Access Framework / Uri]
-    PD -->|Guardar / Actualizar| DH[(DatabaseHelper - SQLite)]
-    PA -->|Carga de Imagen| GL[Glide Image Loader]
-    DH <-->|Persiste / Consulta| DB[(gestorproductos.db)]
+flowchart TD
+    subgraph UI_Layer ["Capa de Presentación (UI & UX)"]
+        MA[MainActivity]
+        BNV[BottomNavigationView]
+        FM[FragmentsManager - DRY]
+        PA[ProductAdapter]
+        VH[ProductViewHolder]
+        PD[ProductDialog]
+    end
+
+    subgraph Business_Layer ["Capa de Lógica & Media"]
+        SAF[Storage Access Framework / URI]
+        GL[Glide Image Pipeline]
+    end
+
+    subgraph Data_Layer ["Capa de Datos & Persistencia"]
+        DH[(DatabaseHelper - SQLiteOpenHelper)]
+        DB[(gestorproductos.db)]
+        P[Product POJO Entity]
+    end
+
+    MA --> BNV
+    BNV -->|tienda_id = 1 / 2| FM
+    FM --> PA
+    PA --> VH
+    FM --> PD
+    PD -->|Seleccionar Foto| SAF
+    PD -->|Guardar / Actualizar| DH
+    PA -->|Cargar Bitmap| GL
+    DH <-->|CRUD SQL Queries| DB
+    DH -->|Mapea Resultados| P
+    P --> FM
 ```
 
-### Estructura de Directorios
+### Matriz de Capas de la Solución
 
-```text
-app/src/main/
-├── AndroidManifest.xml                  # Manifiesto, permisos y configuración de la app
-├── java/com/example/gestorproductos/
-│   ├── MainActivity.java                # Host principal y controlador de BottomNavigationView
-│   ├── FragmentsManager.java            # Fragment unificado para XFit y SportHouse (Principio DRY)
-│   ├── Product.java                     # Modelo de entidad de Producto (POJO)
-│   ├── ProductAdapter.java              # Adaptador y ViewHolder para RecyclerView
-│   ├── ProductDialog.java               # Controlador de modales para Crear y Editar productos
-│   └── DatabaseHelper.java              # Capa de acceso a datos SQLiteOpenHelper (CRUD)
-└── res/
-    ├── color/nav_item_color.xml         # Estados de color para la barra de navegación
-    ├── drawable/                        # Selectores, backgrounds vectoriales e íconos SVG
-    ├── layout/
-    │   ├── activity_main.xml            # Contenedor principal con BottomNavigationView
-    │   ├── fragment_x_fit.xml           # Layout del catálogo de la tienda XFit
-    │   ├── fragment_sport_house.xml     # Layout del catálogo de la tienda SportHouse
-    │   ├── item_producto.xml            # CardView de producto en el RecyclerView
-    │   └── dialog_producto.xml          # Layout del modal flotante de creación/edición
-    ├── values/
-    │   ├── colors.xml                   # Paleta cromática corporativa
-    │   ├── strings.xml                  # Textos y recursos de internacionalización
-    │   └── themes.xml                   # Estilos y temas Material
-    └── navigation/nav_graph.xml         # Grafo de navegación de Jetpack
-```
-
----
-
-## 🛠️ Stack Tecnológico
-
-| Capa / Dominio | Tecnología / Herramienta | Versión | Rol Funcional |
+| Capa Arquitectónica | Componente / Archivo | Tecnología | Rol Funcional en Retail |
 | :--- | :--- | :--- | :--- |
-| **Plataforma** | Android SDK | API 24 - 36 | Runtime objetivo Android 16 (`compileSdk 36`, `minSdk 24`). |
-| **Lenguaje** | Java SE | 11 (LTS) | Lógica de negocio, controladores y capa de acceso a datos. |
-| **Build System** | Gradle (Kotlin DSL) | 9.3.1 (AGP 9.1.1) | Automatización de compilación, gestión de dependencias y empaquetado APK. |
-| **UI Components** | Google Material Components | 1.14.0 | Botones flotantes (FAB), Badges, BottomNav y Cards. |
-| **Layouts & Lists** | ConstraintLayout & RecyclerView | 2.2.1 / 1.3.2 | Vistas responsivas y listados eficientes con reciclaje de memoria. |
-| **View Binding** | Android Gradle ViewBinding | Nativo | Enlace de vistas seguro con tipado estático, eliminando `findViewById`. |
-| **Persistencia** | SQLite (`SQLiteOpenHelper`) | Embebido | Base de datos relacional local sin dependencias de red. |
-| **Image Pipeline**| Bumptech Glide | 4.16.0 | Caching en memoria/disco, decodificación y transformación de imágenes. |
-| **Pruebas** | JUnit & Espresso | 4.13.2 / 3.7.0 | Pruebas unitarias y de instrumentación UI. |
+| **Presentación (Host)** | [`MainActivity.java`](file:///C:/Users/MIGUEL%20ANGEL/AndroidStudioProjects/GestorProductos/app/src/main/java/com/example/gestorproductos/MainActivity.java) | `AppCompatActivity`, `BottomNav` | Contenedor principal de la app y despachador de navegación entre tiendas. |
+| **Presentación (Catálogo)** | [`FragmentsManager.java`](file:///C:/Users/MIGUEL%20ANGEL/AndroidStudioProjects/GestorProductos/app/src/main/java/com/example/gestorproductos/FragmentsManager.java) | `Fragment`, `ViewBinding` | Controlador unificado que gestiona el ciclo de vida del catálogo según la tienda activa. |
+| **Presentación (Listado)** | [`ProductAdapter.java`](file:///C:/Users/MIGUEL%20ANGEL/AndroidStudioProjects/GestorProductos/app/src/main/java/com/example/gestorproductos/ProductAdapter.java) | `RecyclerView.Adapter` | Reciclaje de memoria en lista de productos e interactores de clic para editar/eliminar. |
+| **Formularios & Modales** | [`ProductDialog.java`](file:///C:/Users/MIGUEL%20ANGEL/AndroidStudioProjects/GestorProductos/app/src/main/java/com/example/gestorproductos/ProductDialog.java) | `AlertDialog`, `LayoutInflater` | Formulario dinámico de alta y edición con previsualización reactiva de imagen. |
+| **Procesamiento Gráfico** | Glide 4.16.0 | `Glide.with()` | Carga asíncrona, compresión, escalado `centerCrop` y manejo de placeholders. |
+| **Persistencia de Datos** | [`DatabaseHelper.java`](file:///C:/Users/MIGUEL%20ANGEL/AndroidStudioProjects/GestorProductos/app/src/main/java/com/example/gestorproductos/DatabaseHelper.java) | `SQLiteOpenHelper` | Abstracción de base de datos relacional para operaciones de inserción, consulta, actualización y borrado. |
+| **Modelo de Negocio** | [`Product.java`](file:///C:/Users/MIGUEL%20ANGEL/AndroidStudioProjects/GestorProductos/app/src/main/java/com/example/gestorproductos/Product.java) | POJO / Java Bean | Representación del artículo de ropa deportiva (id, nombre, precio, imagen, tienda). |
 
 ---
 
-## 🗄️ Modelo de Datos
+## 🗄️ Esquema de Base de Datos (SQLite)
 
-La aplicación persiste su información de manera relacional en la base de datos interna `gestorproductos.db`:
+La persistencia se ejecuta en el archivo local `gestorproductos.db` administrado por `DatabaseHelper`:
 
 ### Tabla: `product`
 
-| Columna | Tipo de Dato | Restricciones | Descripción |
+```sql
+CREATE TABLE product (
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    p_nombre  TEXT,
+    p_precio  REAL,
+    p_imagen  TEXT,
+    tienda_id INTEGER
+);
+```
+
+| Campo | Tipo | Restricción | Uso Operativo |
 | :--- | :--- | :--- | :--- |
-| `id` | `INTEGER` | `PRIMARY KEY AUTOINCREMENT` | Identificador único secuencial del producto. |
-| `p_nombre` | `TEXT` | `NOT NULL` | Denominación comercial del artículo deportivo. |
-| `p_precio` | `REAL` | `NOT NULL` | Precio de venta en moneda local. |
-| `p_imagen` | `TEXT` | `NULLABLE` | Cadena URI del recurso multimedia en el almacenamiento del dispositivo. |
-| `tienda_id` | `INTEGER` | `NOT NULL` | Clave de tienda: `1` = **XFit**, `2` = **SportHouse**. |
+| `id` | `INTEGER` | `PRIMARY KEY AUTOINCREMENT` | Código numérico interno de la prenda. |
+| `p_nombre` | `TEXT` | `NOT NULL` | Nombre descriptivo (ej. *"Camiseta Compresión Pro Negra M"*). |
+| `p_precio` | `REAL` | `NOT NULL` | Precio de venta al público en moneda local. |
+| `p_imagen` | `TEXT` | `NULLABLE` | Cadena URI del recurso en almacenamiento para renderizado visual. |
+| `tienda_id` | `INTEGER` | `NOT NULL` | Filtro de marca: `1` = **XFit**, `2` = **SportHouse**. |
 
 ---
 
-## 🎨 Diseño y Sistema Visual
+## 🎨 Identidad Visual y Diseño Ergonómico
 
-La identidad visual ha sido formulada para transmitir dinamismo deportivo, legibilidad en pantallas AMOLED/IPS y alto contraste en entornos de mostrador con luz variable:
+La paleta cromática se seleccionó rigurosamente para garantizar contraste y visibilidad bajo reflectores comerciales:
 
-| Identificador | Muestra | Código HEX | Uso en la Aplicación |
+| Identificador | Muestra | Código HEX | Utilidad en el Piso de Venta |
 | :--- | :---: | :--- | :--- |
-| **Primary** | <img src="https://via.placeholder.com/20/1B3A5C/000000?text=+" width="20" height="20" /> | `#1B3A5C` | Barras de herramientas, encabezados modales y botón primario. |
-| **Accent** | <img src="https://via.placeholder.com/20/F4801A/000000?text=+" width="20" height="20" /> | `#F4801A` | Floating Action Button (FAB de agregar) y acciones destacadas. |
-| **Success / Price** | <img src="https://via.placeholder.com/20/4CAF82/000000?text=+" width="20" height="20" /> | `#4CAF82` | Resaltado tipográfico de precios formateados (`$ 00,000`). |
-| **Background** | <img src="https://via.placeholder.com/20/F5F7FA/000000?text=+" width="20" height="20" /> | `#F5F7FA` | Fondo base con matiz frío para descanso visual. |
-| **Surface** | <img src="https://via.placeholder.com/20/FFFFFF/000000?text=+" width="20" height="20" /> | `#FFFFFF` | Tarjetas de producto (`ItemView`) y cuerpo de diálogos. |
-| **Text Primary** | <img src="https://via.placeholder.com/20/1A1A2E/000000?text=+" width="20" height="20" /> | `#1A1A2E` | Títulos y etiquetas de alta jerarquía. |
-| **Border / Stroke** | <img src="https://via.placeholder.com/20/E0E4EB/000000?text=+" width="20" height="20" /> | `#E0E4EB` | Delimitadores de inputs y bordes sutiles en tarjetas. |
+| **Primary Navy** | <img src="https://via.placeholder.com/20/1B3A5C/000000?text=+" width="20" height="20" /> | `#1B3A5C` | Barras de navegación superior, cabecera de diálogos y acciones de edición. |
+| **Accent Orange** | <img src="https://via.placeholder.com/20/F4801A/000000?text=+" width="20" height="20" /> | `#F4801A` | Botón Flotante (FAB) de adición rápida y confirmación de guardado. |
+| **Success Green** | <img src="https://via.placeholder.com/20/4CAF82/000000?text=+" width="20" height="20" /> | `#4CAF82` | Destacado tipográfico del precio comercial. |
+| **Surface White** | <img src="https://via.placeholder.com/20/FFFFFF/000000?text=+" width="20" height="20" /> | `#FFFFFF` | Contenedores tipo Card para los artículos. |
+| **Background Light** | <img src="https://via.placeholder.com/20/F5F7FA/000000?text=+" width="20" height="20" /> | `#F5F7FA` | Fondo ergonómico para reducir fatiga ocular en turnos extendidos. |
 
 ---
 
-## 📱 Demostración Visual
+## 📱 Demostración Visual / Capturas
 
 <div align="center">
   <table>
     <tr>
-      <td align="center"><b>Catálogo XFit</b></td>
-      <td align="center"><b>Catálogo SportHouse</b></td>
-      <td align="center"><b>Gestión & Diálogo Modal</b></td>
+      <td align="center" width="33%"><b>1. Catálogo XFit (Fitness)</b></td>
+      <td align="center" width="33%"><b>2. Catálogo SportHouse (Casual)</b></td>
+      <td align="center" width="33%"><b>3. Modal Registro & Edición</b></td>
     </tr>
     <tr>
-      <td>
-        <img src="https://raw.githubusercontent.com/MiguelMD06/Gestor-Productos/master/app/src/main/res/drawable/xfit.xml" width="220" alt="Vista Tienda XFit" />
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/MiguelMD06/Gestor-Productos/master/app/src/main/res/drawable/xfit.xml" width="220" alt="Catálogo XFit" />
         <br />
-        <sub><i>Catálogo segmentado con badge de marca</i></sub>
+        <sub><i>Listado ágil con selector de tienda activo en XFit</i></sub>
       </td>
-      <td>
-        <img src="https://raw.githubusercontent.com/MiguelMD06/Gestor-Productos/master/app/src/main/res/drawable/sporthouse.xml" width="220" alt="Vista Tienda SportHouse" />
+      <td align="center">
+        <img src="https://raw.githubusercontent.com/MiguelMD06/Gestor-Productos/master/app/src/main/res/drawable/sporthouse.xml" width="220" alt="Catálogo SportHouse" />
         <br />
-        <sub><i>Inventario independiente con navegación fluida</i></sub>
+        <sub><i>Conmutación instantánea a inventario de SportHouse</i></sub>
       </td>
-      <td>
-        <img src="https://via.placeholder.com/220x440/1B3A5C/FFFFFF?text=Dialogo+Crear/Editar" width="220" alt="Modal Crear y Editar" />
+      <td align="center">
+        <img src="https://via.placeholder.com/220x440/1B3A5C/FFFFFF?text=Formulario+Producto" width="220" alt="Modal de Registro" />
         <br />
-        <sub><i>Formulario de alta/edición con selector de imagen</i></sub>
+        <sub><i>Edición in situ de nombre, precio e imagen de galería</i></sub>
       </td>
     </tr>
   </table>
@@ -209,16 +224,13 @@ La identidad visual ha sido formulada para transmitir dinamismo deportivo, legib
 
 ## 📋 Requisitos Previos
 
-Antes de compilar y ejecutar el proyecto, asegúrate de contar con el siguiente entorno de desarrollo:
-
-- **Java Development Kit (JDK):** Versión 11 o superior (recomendado JDK 17 o 21).
-- **Android Studio:** Hedgehog (2023.1.1), Ladybug o versión posterior.
+- **Java Development Kit (JDK):** Versión 11 LTS (o superior: 17 / 21).
+- **Android Studio:** Hedgehog (2023.1.1) o superior.
 - **Android SDK:**
-  - `compileSdk`: **36**
-  - `minSdk`: **24** (Android 7.0 Nougat)
-  - `targetSdk`: **36** (Android 16)
-  - Build-Tools y Platform-Tools actualizados.
-- **Dispositivo de Pruebas:** Emulador de Android Studio o teléfono físico con depuración USB habilitada (Android 7.0+).
+  - `minSdkVersion`: **24** (Android 7.0 Nougat).
+  - `targetSdkVersion`: **36** (Android 16).
+  - `compileSdkVersion`: **36**.
+- **Dispositivo de Prueba:** Smartphone físico con Android 7.0+ o Emulador con Android Virtual Device (AVD).
 
 ---
 
@@ -231,115 +243,91 @@ git clone https://github.com/MiguelMD06/Gestor-Productos.git
 cd Gestor-Productos
 ```
 
-### 2. Configurar la Ubicación del Android SDK
+### 2. Configuración de Entorno Local
 
-Copia el archivo de plantilla `local.properties.example` y renómbralo a `local.properties`:
+El repositorio incluye la plantilla [`local.properties.example`](./local.properties.example). Crea tu archivo de configuración local:
 
-**En Windows (PowerShell):**
+**Windows (PowerShell):**
 ```powershell
 Copy-Item local.properties.example local.properties
 ```
 
-**En Linux / macOS:**
+**Linux / macOS:**
 ```bash
 cp local.properties.example local.properties
 ```
 
-Edita `local.properties` y define la ruta absoluta a tu Android SDK local:
-
+Especifica la ruta a tu SDK de Android en `local.properties`:
 ```properties
+# Ejemplo en Windows:
 sdk.dir=C\:\\Users\\<TuUsuario>\\AppData\\Local\\Android\\Sdk
-# En macOS: sdk.dir=/Users/<TuUsuario>/Library/Android/sdk
-# En Linux: sdk.dir=/home/<TuUsuario>/Android/Sdk
+
+# Ejemplo en macOS:
+sdk.dir=/Users/<TuUsuario>/Library/Android/sdk
+
+# Ejemplo en Linux:
+sdk.dir=/home/<TuUsuario>/Android/Sdk
 ```
 
-### 3. Compilación y Construcción por Terminal (CLI)
+### 3. Compilación por Línea de Comandos (CLI)
 
-El proyecto incluye el binario Gradle Wrapper para garantizar compilaciones reproducibles:
+Utiliza el Gradle Wrapper incluido en la raíz:
 
-**Verificar tareas disponibles:**
 ```bash
-# Windows
-.\gradlew.bat tasks
-
-# Linux / macOS
-./gradlew tasks
+# Compilar fuentes Java y validar recursos
+.\gradlew.bat compileDebugJavaWithJavac   # Windows
+./gradlew compileDebugJavaWithJavac       # Linux/macOS
 ```
 
-**Compilar el APK de depuración (Debug Build):**
+---
+
+## 📦 Generación y Distribución del APK
+
+Para instalar y utilizar la aplicación directamente en los teléfonos inteligentes del equipo de ventas sin necesidad de tener abierta la computadora de desarrollo:
+
+### 1. Generar el Paquete APK (Debug)
+Ejecuta el siguiente comando en la raíz del proyecto:
+
 ```bash
-# Windows
+# En Windows:
 .\gradlew.bat assembleDebug
 
-# Linux / macOS
+# En Linux / macOS:
 ./gradlew assembleDebug
 ```
-*El binario generado se ubicará en:* `app/build/outputs/apk/debug/app-debug.apk`
 
-**Instalar directamente en un dispositivo conectado (ADB):**
-```bash
-# Windows
-.\gradlew.bat installDebug
-
-# Linux / macOS
-./gradlew installDebug
+El binario ejecutable compilado quedará generado en la siguiente ruta:
+```text
+app/build/outputs/apk/debug/app-debug.apk
 ```
 
-### 4. Ejecución desde Android Studio
+### 2. Métodos de Instalación en Smartphone Físico:
 
-1. Abre **Android Studio**.
-2. Selecciona **Open** y navega hasta la carpeta raíz del proyecto clonado.
-3. Espera a que la sincronización de Gradle finalice con éxito (*Gradle Sync*).
-4. Elige tu dispositivo o emulador en la barra superior.
-5. Presiona el botón verde de **Run** (`Shift + F10`).
+#### Opción A: Vía Cable USB con ADB (Recomendado para desarrolladores)
+Conecta el teléfono con **Depuración USB** activada y ejecuta:
+```bash
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
 
----
-
-## ⚙️ Configuración de Entorno
-
-| Variable / Archivo | Ubicación | Propósito | Requerido |
-| :--- | :--- | :--- | :---: |
-| `local.properties` | Raíz del proyecto | Especifica el path absoluto al SDK de Android local. | **Sí** |
-| `JAVA_HOME` | Variable de Sistema | Apunta a la instalación del JDK (Java 11+). | **Sí** |
-| `ANDROID_HOME` | Variable de Sistema | Opcional si `local.properties` está configurado. | No |
-
-> [!IMPORTANT]
-> El archivo `local.properties` contiene rutas absolutas de tu máquina personal y está explícitamente ignorado en `.gitignore`. Nunca lo incluyas en tus commits de control de versiones.
+#### Opción B: Distribución Directa (Para asesores en tienda)
+1. Envía el archivo `app-debug.apk` al dispositivo móvil a través de WhatsApp Web, Telegram, Google Drive o cable USB.
+2. En el teléfono, abre el archivo descargado.
+3. Si el sistema lo solicita, autoriza la casilla **"Permitir la instalación de aplicaciones desconocidas"**.
+4. Presiona **Instalar** y ¡listo! La herramienta queda disponible en el menú de aplicaciones.
 
 ---
 
-## 💼 Contexto del Proyecto y Autoría
+## 🗺️ Hoja de Ruta (Roadmap Comercial)
 
-Este software fue diseñado e implementado como un **proyecto personal de desarrollo** para resolver una necesidad operativa real en mi entorno de trabajo en las tiendas deportivas *XFit* y *SportHouse*, aplicando estándares y buenas prácticas de ingeniería de software para desarrollo móvil:
-
-- **Autor:** Miguel Medina Díaz ([@MiguelMD06](https://github.com/MiguelMD06))
-- **Habilidades y Patrones Implementados:**
-  - Persistencia de datos local estructurada con motor **SQLite** nativo y cero dependencia de red para entornos retail.
-  - Implementación del principio **DRY** mediante refactorización de controladores duplicados a un componente unificado (`FragmentsManager`).
-  - Manejo seguro de memoria e interfaces con **View Binding**.
-  - Ciclo de vida robusto en Fragments y persistencia de permisos URI para galerías de imágenes (`Storage Access Framework`).
-  - Aplicación de guías de diseño y accesibilidad de **Material Design 3**.
+- [ ] **Escáner de Código de Barras / EAN-13:** Integración con Google ML Kit para consultar referencias apuntando con la cámara trasera.
+- [ ] **Búsqueda Predictiva en Tiempo Real:** Barra `SearchView` superior para filtrar prendas por talla, color o nombre sin desplazarse por la lista.
+- [ ] **Exportación de Catálogo a PDF:** Generación de fichas de precios en PDF para compartir al instante con clientes vía WhatsApp.
+- [ ] **Sincronización P2P o Respaldo en la Nube:** Opción de exportar/importar la base de datos `gestorproductos.db` entre dispositivos del mismo local comercial.
 
 ---
 
-## 🗺️ Hoja de Ruta (Roadmap)
+## 👤 Autor y Licencia
 
-- [ ] **Escaneo de Código de Barras / QR:** Integración con *CameraX* y *ML Kit* para identificación inmediata de artículos en estantería.
-- [ ] **Búsqueda y Filtros en Tiempo Real:** Barra de búsqueda predictiva con filtrado por rango de precios y nombres mediante `SearchView`.
-- [ ] **Exportación de Catálogo a PDF:** Generación dinámica de catálogos imprimibles para enviar a clientes vía WhatsApp.
-- [ ] **Sincronización en la Nube:** Migración o sincronización híbrida con backend REST / Firebase para actualización remota de inventario.
-- [ ] **Soporte de Tema Oscuro Dinámico:** Adaptación de paleta a `values-night` para eficiencia energética en pantallas OLED.
+Desarrollado por **Miguel Medina Díaz** ([@MiguelMD06](https://github.com/MiguelMD06)) como solución de software aplicada a la optimización de procesos en el retail deportivo.
 
----
-
-## 📄 Licencia
-
-Este proyecto se distribuye bajo la licencia **MIT**. Consulta el archivo [LICENSE](./LICENSE) para conocer los términos completos y condiciones de uso.
-
----
-
-<div align="center">
-
-Hecho con dedicación por [Miguel Medina Díaz (@MiguelMD06)](https://github.com/MiguelMD06) 🚀
-
-</div>
+Este proyecto es de código abierto y se distribuye bajo la licencia **MIT**. Consulta el archivo [LICENSE](./LICENSE) para conocer los términos legales y condiciones de uso.
